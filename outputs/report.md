@@ -1,0 +1,353 @@
+# Resumo Executivo
+
+{
+  "depot": {
+    "id": 0,
+    "name": "Deposito Central"
+  },
+  "routes": [
+    {
+      "vehicle_id": "V1",
+      "sequence": [
+        0,
+        25,
+        8,
+        9,
+        18,
+        6,
+        7,
+        24,
+        26,
+        0
+      ],
+      "distance_km": 7013.79572430873,
+      "time_min": 7081.79572430873,
+      "load": 79.0,
+      "penalties": {
+        "capacity": 0.0,
+        "range": 5813.79572430873,
+        "priority": 7.0,
+        "time": 28054.050346866672
+      }
+    },
+    {
+      "vehicle_id": "V2",
+      "sequence": [
+        0,
+        11,
+        5,
+        17,
+        2,
+        13,
+        4,
+        15,
+        19,
+        21,
+        0
+      ],
+      "distance_km": 8598.261875797432,
+      "time_min": 8662.261875797432,
+      "load": 68.0,
+      "penalties": {
+        "capacity": 0.0,
+        "range": 7398.261875797432,
+        "priority": 5.85,
+        "time": 95290.18351965
+      }
+    },
+    {
+      "vehicle_id": "V3",
+      "sequence": [
+        0,
+        3,
+        22,
+        27,
+        23,
+        1,
+        14,
+        20,
+        0
+      ],
+      "distance_km": 4882.776941581724,
+      "time_min": 4948.776941581724,
+      "load": 79.0,
+      "penalties": {
+        "capacity": 0.0,
+        "range": 3682.776941581724,
+        "priority": 12.75,
+        "time": 30428.54583976667
+      }
+    },
+    {
+      "vehicle_id": "V4",
+      "sequence": [
+        0,
+        12,
+        16,
+        10,
+        0
+      ],
+      "distance_km": 5162.629334926736,
+      "time_min": 5190.629334926736,
+      "load": 30.0,
+      "penalties": {
+        "capacity": 0.0,
+        "range": 3962.629334926736,
+        "priority": 2.25,
+        "time": 18052.540794916666
+      }
+    },
+    {
+      "vehicle_id": "V5",
+      "sequence": [
+        0,
+        0
+      ],
+      "distance_km": 0.0,
+      "time_min": 0.0,
+      "load": 0,
+      "penalties": {
+        "capacity": 0.0,
+        "range": 0.0,
+        "priority": 0.0,
+        "time": 0.0
+      }
+    }
+  ],
+  "global_metrics": {
+    "distance_total_km": 25657.463876614624,
+    "vehicles_used": 4,
+    "distance_mean_km": 5131.492775322925,
+    "distance_std_km": 2896.7775041329774,
+    "load_mean": 51.2,
+    "load_std": 31.301118190888964,
+    "best_fitness": 4714307.956497492
+  },
+  "convergence": [
+    {
+      "gen": 1,
+      "best_fitness": 5009975.673708459
+    },
+    {
+      "gen": 2,
+      "best_fitness": 5009975.673708459
+    },
+    {
+      "gen": 3,
+      "best_fitness": 4990482.555980614
+    },
+    {
+      "gen": 4,
+      "best_fitness": 4990482.555980614
+    },
+    {
+      "gen": 5,
+      "best_fitness": 4990482.555980614
+    },
+    {
+      "gen": 6,
+      "best_fitness": 4847126.159030213
+    },
+    {
+      "gen": 7,
+      "best_fitness": 4827633.041302368
+    },
+    {
+      "gen": 8,
+      "best_fitness": 4827633.041302368
+    },
+    {
+      "gen": 9,
+      "best_fitness": 4827633.041302368
+    },
+    {
+      "gen": 10,
+      "best_fitness": 4714307.956497492
+    },
+    {
+      "gen": 11,
+      "best_fitness": 4714307.956497492
+    },
+    {
+      "gen": 12,
+      "best_fitness": 4714307.956497492
+    },
+    {
+      "gen": 13,
+      "best_fitness": 4714307.956497492
+    },
+    {
+      "gen": 14,
+      "best_fitness": 4714307.956497492
+    },
+    {
+      "gen": 15,
+      "best_fitness": 4714307.956497492
+    },
+    {
+      "gen": 16,
+      "best_fitness": 4714307.956497492
+    },
+    {
+      "gen": 17,
+      "best_fitness": 4714307.956497492
+    },
+    {
+      "gen": 18,
+      "best_fitness": 4714307.956497492
+    },
+    {
+      "gen": 19,
+      "best_fitness": 4714307.956497492
+    },
+    {
+      "gen": 20,
+      "best_fitness": 4714307.956497492
+    },
+    {
+      "gen": 21,
+      "best_fitness": 4714307.956497492
+    },
+    {
+      "gen": 22,
+      "best_fitness": 4714307.956497492
+    },
+    {
+      "gen": 23,
+      "best_fitness": 4714307.956497492
+    },
+    {
+      "gen": 24,
+      "best_fitness": 4714307.956497492
+    },
+    {
+      "gen": 25,
+      "best_fitness": 4714307.956497492
+    },
+    {
+      "gen": 26,
+      "best_fitness": 4704649.306469418
+    },
+    {
+      "gen": 27,
+      "best_fitness": 4704649.306469418
+    },
+    {
+      "gen": 28,
+      "best_fitness": 4704649.306469418
+    },
+    {
+      "gen": 29,
+      "best_fitness": 4704649.306469418
+    },
+    {
+      "gen": 30,
+      "best_fitness": 4704649.306469418
+    },
+    {
+      "gen": 31,
+      "best_fitness": 4704649.306469418
+    },
+    {
+      "gen": 32,
+      "best_fitness": 4704649.306469418
+    },
+    {
+      "gen": 33,
+      "best_fitness": 4704649.306469418
+    },
+    {
+      "gen": 34,
+      "best_fitness": 4704649.306469418
+    },
+    {
+      "gen": 35,
+      "best_fitness": 4704649.306469418
+    },
+    {
+      "gen": 36,
+      "best_fitness": 4704649.306469418
+    },
+    {
+      "gen": 37,
+      "best_fitness": 4704649.306469418
+    },
+    {
+      "gen": 38,
+      "best_fitness": 4704649.306469418
+    },
+    {
+      "gen": 39,
+      "best_fitness": 4704649.306469418
+    },
+    {
+      "gen": 40,
+      "best_fitness": 4704649.306469418
+    },
+    {
+      "gen": 41,
+      "best_fitness": 4704649.306469418
+    },
+    {
+      "gen": 42,
+      "best_fitness": 4704649.306469418
+    },
+    {
+      "gen": 43,
+      "best_fitness": 4704649.306469418
+    },
+    {
+      "gen": 44,
+      "best_fitness": 4704649.306469418
+    },
+    {
+      "gen": 45,
+      "best_fitness": 4704649.306469418
+    },
+    {
+      "gen": 46,
+      "best_fitness": 4704649.306469418
+    },
+    {
+      "gen": 47,
+      "best_fitness": 4704649.306469418
+    },
+    {
+      "gen": 48,
+      "best_fitness": 4704649.306469418
+    },
+    {
+      "gen": 49,
+      "best_fitness": 4704649.306469418
+    },
+    {
+      "gen": 50,
+      "best_fitness": 4704649.306469418
+    },
+    {
+      "gen": 51,
+      "best_fitness": 4704649.306469418
+    },
+    {
+      "gen": 52,
+      "best_fitness": 4704649.306469418
+    },
+    {
+      "gen": 53,
+      "best_fitness": 4704649.306469418
+    },
+    {
+      "gen": 54,
+      "best_fitness": 4704649.306469418
+    },
+    {
+      "gen": 55,
+      "best_fitness": 4704649.306469418
+    },
+    {
+      "gen": 56,
+      "best_fitness": 4704649.306469418
+    }
+  ],
+  "feasibility": false
+}

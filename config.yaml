@@ -1,0 +1,45 @@
+ga:
+  seed: 42
+  population_size: 150
+  generations: 200
+  selection: tournament
+  tournament_k: 5
+  crossover: PMX
+  crossover_rate: 0.9
+  mutation: inversion
+  mutation_rate: 0.2
+  elitism: 5
+  stagnation_patience: 30
+vrp:
+  vehicles: 5
+  vehicle_capacity: 80
+  vehicle_range_km: 1200
+  vehicle_speed_kmh: 60
+  service_time_min: 10
+  work_time_window: ["08:00", "20:00"]
+weights:
+  w_distance: 1.0
+  w_capacity: 60.0
+  w_range: 60.0
+  w_priority: 25.0
+  w_time: 20.0
+depot:
+  name: "Deposito Central"
+  latitude: -23.5
+  longitude: -46.6
+  demanda: 0
+  prioridade: 1
+  tempo_atendimento_min: 0
+llm:
+  provider: openai  # opções: openai | gemini | local
+  model: gpt-4o-mini  # openai: gpt-4o-mini/gpt-3.5-turbo; gemini: gemini-1.5-flash
+  temperature: 0.2
+  system_prompt: |
+    Você é um(a) despachante logístico hospitalar. Gere instruções detalhadas e seguras com base no JSON fornecido, sem inventar dados. Priorize medicamentos críticos e oriente sobre segurança e conformidade.
+logging:
+  jsonl_path: outputs/run_log.jsonl
+output:
+  solution_json: outputs/solution.json
+  report_md: outputs/report.md
+  map_html: outputs/map.html
+  convergence_png: outputs/convergence.png

@@ -96,28 +96,20 @@ def main():
     st.set_page_config(page_title="Cacheiro VRP GA", layout="wide")
     st.title("🚑 Cacheiro VRP GA - Dashboard")
 
-    # Sidebar for API key and settings
+    # Sidebar for LLM settings (Ollama local only)
     with st.sidebar:
-        st.header("⚙️ Configurações")
-        provider = st.selectbox("Provider LLM", ["openai", "gemini", "local"], index=0)
+        st.header("⚙️ LLM (Ollama local)")
         model_input = st.text_input(
-            "Modelo",
-            value="gpt-4o-mini" if provider == "openai" else "gemini-1.5-flash",
-            help="Ex.: openai: gpt-4o-mini / gpt-3.5-turbo | gemini: gemini-1.5-flash"
+            "Modelo Ollama",
+            value="llama3",
+            help="Ex.: llama3, llama3.2:3b-instruct, qwen2.5, deepseek-r1, etc. Certifique-se de ter feito `ollama pull <modelo>`.",
         )
-        api_key_input = st.text_input(
-            "API Key (opcional)",
-            type="password",
-            help="Deixe em branco para usar variável de ambiente: OPENAI_API_KEY ou GEMINI_API_KEY"
+        host_input = st.text_input(
+            "Host (opcional)",
+            value=os.environ.get("OLLAMA_HOST", ""),
+            help="Ex.: http://localhost:11434. Deixe em branco para usar o padrão do Ollama local.",
         )
-        st.caption("⚠️ **Nunca compartilhe sua chave**. Revogue chaves expostas em seus painéis do provedor.")
-        st.divider()
-        st.markdown("### 💡 Dicas")
-        st.markdown("""
-        - OpenAI: gpt-4o-mini ou gpt-3.5-turbo (mais barato)
-        - Gemini: gemini-1.5-flash ou gemini-1.5-pro
-        - Local: usa stub interno (sem custo)
-        """)
+        st.caption("💡 Rode `ollama serve` e `ollama pull <modelo>` antes de executar a otimização.")
 
     col1, col2 = st.columns(2)
     with col1:
@@ -156,32 +148,22 @@ def main():
         map_html = build_map_html(routes, cfg.depot, {cfg.depot.node_id: cfg.depot, **load_nodes(data_path)})
         st.components.v1.html(map_html, height=600)
 
-        # LLM instructions for first route
-        api_key = api_key_input.strip()
-        if not api_key:
-            # try provider-specific env vars
-            if provider == "openai":
-                api_key = os.environ.get("OPENAI_API_KEY", "")
-            elif provider == "gemini":
-                api_key = os.environ.get("GEMINI_API_KEY", "")
-            else:
-                api_key = ""
-        if api_key and solution["routes"]:
-            st.subheader("📝 Instruções operacionais (LLM)")
+        # LLM instructions for first route (Ollama local)
+        if solution["routes"]:
+            st.subheader("📝 Instruções operacionais (LLM - Ollama)")
             try:
                 client = LLMClient(
-                    model_input or cfg.llm.get("model", "gpt-4o-mini"),
-                    api_key=api_key,
+                    model_input or cfg.llm.get("model", "llama3"),
                     temperature=cfg.llm.get("temperature", 0.2),
-                    provider=provider,
+                    host=host_input or cfg.llm.get("host"),
                 )
                 instr = instructions_for_route(client, solution["routes"][0]["vehicle_id"], solution["routes"][0])
                 st.markdown(instr)
             except Exception as e:
-                st.error(f"❌ Erro ao chamar LLM: {e}")
-                st.info("� **Soluções**: Verifique créditos em [Billing](https://platform.openai.com/account/billing) ou troque o modelo no `config.yaml` para `gpt-3.5-turbo` ou `gpt-4o-mini`")
+                st.error(f"❌ Erro ao chamar LLM (Ollama): {e}")
+                st.info("💡 Verifique se o serviço Ollama está rodando (`ollama serve`) e se o modelo foi baixado (`ollama pull <modelo>`).")
         else:
-            st.info("💡 Forneça uma API key na barra lateral ou defina `OPENAI_API_KEY` / `GEMINI_API_KEY` no ambiente para habilitar instruções LLM.")
+            st.info("💡 Nenhuma rota gerada para solicitar instruções ao LLM.")
 
     st.caption("Execute: `streamlit run src/ui/app.py`")
 

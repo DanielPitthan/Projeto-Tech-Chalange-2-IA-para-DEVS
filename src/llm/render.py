@@ -4,66 +4,49 @@ import json
 from typing import Any, Dict, Optional
 
 try:
-    from openai import OpenAI
+    from ollama import Client
 except Exception:  # pragma: no cover
-    OpenAI = None  # type: ignore
-
-try:
-    import google.generativeai as genai
-except Exception:  # pragma: no cover
-    genai = None  # type: ignore
+    Client = None  # type: ignore
 
 from . import prompts
 
 
 class LLMClient:
-    def __init__(
-        self,
-        model: str,
-        api_key: Optional[str] = None,
-        temperature: float = 0.2,
-        provider: str = "openai",
-    ):
+    """Cliente LLM exclusivo para Ollama local."""
+
+    def __init__(self, model: str, temperature: float = 0.2, host: Optional[str] = None) -> None:
         self.model = model
         self.temperature = temperature
-        self.api_key = api_key
-        self.provider = provider.lower()
-
-        self.client = None
+        self.host = host
+        self.client: Optional[Client] = None
         self.available = False
 
-        if self.provider == "openai" and OpenAI is not None and api_key:
-            self.client = OpenAI(api_key=api_key)
-            self.available = True
-        elif self.provider == "gemini" and genai is not None and api_key:
-            genai.configure(api_key=api_key)
-            self.available = True
-        elif self.provider == "local":
-            # local/mock provider: always available, no external calls
+        if Client is not None:
+            # host opcional permite apontar para outra instância; default usa localhost:11434
+            self.client = Client(host=host) if host else Client()
             self.available = True
 
     def complete(self, system: str, user: str) -> str:
-        if not self.available:
-            return "[LLM desabilitado: configure chave e provider (openai/gemini/local)]"
+        if not self.available or self.client is None:
+            return "[LLM desabilitado: instale o pacote 'ollama' (pip install ollama) e execute 'ollama serve']"
 
-        if self.provider == "openai" and self.client:
-            resp = self.client.chat.completions.create(
+        try:
+            resp = self.client.chat(
                 model=self.model,
-                temperature=self.temperature,
-                messages=[{"role": "system", "content": system}, {"role": "user", "content": user}],
+                messages=[
+                    {"role": "system", "content": system},
+                    {"role": "user", "content": user},
+                ],
+                options={"temperature": self.temperature},
             )
-            return resp.choices[0].message.content or ""
+        except Exception as e:  # pragma: no cover - retorno de erro ao usuário final
+            return f"[Erro ao chamar Ollama: {e}]"
 
-        if self.provider == "gemini":
-            if genai is None:
-                return "[Gemini SDK ausente: instale google-generativeai]"
-            model = genai.GenerativeModel(self.model)
-            prompt = f"SYSTEM:\n{system}\n\nUSER:\n{user}"
-            resp = model.generate_content(prompt)
-            return resp.text or ""
-
-        # Local/mock provider
-        return "[LLM local/mock: nenhuma chamada externa realizada]"
+        # resp.message.content já contém o texto final; manter fallback seguro
+        try:
+            return resp.message.content or ""
+        except Exception:
+            return ""
 
 
 def instructions_for_route(client: LLMClient, vehicle_id: str, route_json: Dict[str, Any]) -> str:

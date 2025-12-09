@@ -29,12 +29,12 @@ streamlit run src/ui/app.py
 # Abre em http://localhost:8501
 ```
 
-**Na UI:**
-1. Escolha Provider LLM (OpenAI/Gemini/local)
-2. Cole API Key (ou deixe em branco)
+**Na UI (Ollama):**
+1. Rode `ollama serve`
+2. Faça `ollama pull <modelo>` (ex.: llama3, qwen2.5, deepseek-r1)
 3. Informe config.yaml e CSV
 4. Clique "🚀 Executar otimização"
-5. Veja métricas, mapa, gráficos
+5. Veja métricas, mapa, gráficos e instruções do LLM
 
 ### CLI (Linha de Comando)
 ```bash
@@ -73,11 +73,12 @@ weights:
   w_time: 20.0                  # ↑ se janela extrapolada
 ```
 
-### LLM (opcional)
+### LLM (Ollama local)
 ```yaml
 llm:
-  provider: openai              # openai | gemini | local
-  model: gpt-4o-mini           # ou gpt-3.5-turbo, gemini-1.5-flash
+  model: llama3                # ex.: llama3, llama3.2:3b-instruct, qwen2.5
+  host: http://localhost:11434  # opcional; deixe vazio/ausente para padrão do Ollama
+  temperature: 0.2
 ```
 
 ---
@@ -117,7 +118,7 @@ id,nome,estado,latitude,longitude,demanda,prioridade,janela_inicio,janela_fim,te
 | "FileNotFoundError config.yaml" | Confira caminho em config_path |
 | "Mapa vazio" | Valide CSV (lat/lon numéricos) |
 | "Fitness não melhora" | Aumente `population_size`, `generations`, reduza `mutation_rate` |
-| "LLM desabilitado" | Defina `OPENAI_API_KEY` ou escolha provider "local" |
+| "LLM desabilitado" | Instale `pip install ollama`, rode `ollama serve` e faça `ollama pull <modelo>` |
 
 ---
 
@@ -148,15 +149,13 @@ GA produz rotas
     ↓
 Prompt template + JSON rota
     ↓
-LLMClient.complete() → OpenAI/Gemini/local
+LLMClient.complete() → Ollama local
     ↓
 Instruções operacionais
 ```
 
-**Provedores:**
-- OpenAI: gpt-4o-mini (~$0.15/1M tokens)
-- Gemini: gemini-1.5-flash (grátis, 500 req/dia)
-- Local: stub (sem custo, sem API)
+**Modelo:**
+- Ollama local (sem API key); use `ollama pull <modelo>` antes
 
 ---
 

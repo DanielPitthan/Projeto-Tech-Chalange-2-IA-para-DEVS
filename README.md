@@ -11,7 +11,7 @@
 **Cacheiro** é um otimizador de rotas para entregas hospitalares que combina:
 - **Algoritmo Genético (GA)** para resolver o problema de roteamento de veículos (VRP)
 - **Interface Streamlit** para visualização interativa de rotas, métricas e convergência
-- **IA Generativa** (OpenAI/Gemini) para gerar instruções operacionais claras
+- **IA Generativa** (Ollama local) para gerar instruções operacionais claras
 - **CLI robusta** para integração em pipelines automatizados
 
 Minimize distâncias, respeite restrições (capacidade, autonomia, prioridades, janelas de trabalho) e obtenha rotas viáveis em segundos.
@@ -30,7 +30,7 @@ Minimize distâncias, respeite restrições (capacidade, autonomia, prioridades,
 | **Fitness** | Combinação linear de distância + 5 penalidades (capacidade, autonomia, prioridade, tempo) |
 | **Tempo Típico** | ~30-120s para 27 capitais brasileiras |
 | **Saídas** | JSON, mapa HTML (Folium), gráfico PNG, log JSONL, relatório MD |
-| **IA Generativa** | OpenAI GPT (gpt-4o-mini, gpt-3.5-turbo) ou Gemini (1.5-flash) |
+| **IA Generativa** | Ollama local (qualquer modelo baixado via `ollama pull`) |
 | **Interface** | Streamlit (interativa) + CLI (batch) |
 
 ---
@@ -43,7 +43,7 @@ Minimize distâncias, respeite restrições (capacidade, autonomia, prioridades,
 - **Folium** (mapas)
 - **Matplotlib** (gráficos)
 - **PyYAML** (configuração)
-- **OpenAI** ou **google-generativeai** (opcional, para LLM)
+- **Ollama** (cliente Python para LLM local)
 
 ### Instalação
 
@@ -55,14 +55,11 @@ cd Projeto-Tech-Chalange-2-IA-para-DEVS
 # Instale as dependências
 pip install -r requeriments.txt
 
-# (Opcional) Expose variáveis de ambiente para LLM
-# Windows PowerShell:
-setx OPENAI_API_KEY "sua_chave_aqui"
-setx GEMINI_API_KEY "sua_chave_aqui"
-
-# Linux/macOS:
-export OPENAI_API_KEY="sua_chave_aqui"
-export GEMINI_API_KEY="sua_chave_aqui"
+# LLM local (Ollama)
+# 1) Inicie o serviço (uma vez por sessão)
+ollama serve
+# 2) Baixe o modelo desejado (ex.: llama3)
+ollama pull llama3
 ```
 
 ---
@@ -86,7 +83,7 @@ Projeto-Tech-Chalange-2-IA-para-DEVS/
 │   │   ├── load_data.py           # Leitura e validação de dados CSV
 │   │   └── output_saver.py        # Salvamento de artefatos
 │   ├── llm/                       # Integração com IA Generativa
-│   │   ├── render.py              # Cliente LLM (OpenAI, Gemini, local)
+│   │   ├── render.py              # Cliente LLM (Ollama local)
 │   │   └── prompts.py             # Templates de prompts
 │   ├── viz/                       # Visualização
 │   │   ├── map.py                 # Mapa Folium
@@ -126,10 +123,10 @@ A interface web oferece visualização interativa e controle total sobre parâme
    streamlit run src/ui/app.py
    ```
 3. O navegador abre em `http://localhost:8501`
-4. Na barra lateral:
-   - Selecione **Provider LLM** (OpenAI, Gemini ou local)
-   - Informe o **Modelo** (ex: gpt-4o-mini, gemini-1.5-flash)
-   - Cole a **API Key** (ou deixe em branco para usar variável de ambiente)
+4. Na barra lateral (LLM via Ollama local):
+  - Informe o **Modelo** (ex.: llama3, llama3.2:3b-instruct, qwen2.5, deepseek-r1)
+  - (Opcional) Informe o **Host** do Ollama se não for o padrão `http://localhost:11434`
+  - Certifique-se de ter rodado `ollama serve` e `ollama pull <modelo>` antes
 5. Na seção principal:
    - Informe caminho para `config.yaml` (padrão: `config.yaml`)
    - Informe caminho para CSV de dados (padrão: `src/data/capitais.csv`)
@@ -142,8 +139,7 @@ A interface web oferece visualização interativa e controle total sobre parâme
    - 📝 Instruções operacionais via LLM (se habilitado)
 
 **Dicas:**
-- Deixe **API Key vazia** se tiver definido variáveis de ambiente (`OPENAI_API_KEY`, `GEMINI_API_KEY`)
-- Use **local** como provider para testes sem custo
+- Se aparecer "LLM desabilitado", instale `pip install ollama`, rode `ollama serve` e faça `ollama pull <modelo>`
 - Ajuste `config.yaml` para alterar parâmetros GA/VRP entre execuções
 
 ---
@@ -251,9 +247,8 @@ depot:
 
 ```yaml
 llm:
-  provider: openai                  # openai | gemini | local
-  model: gpt-4o-mini                # openai: gpt-4o-mini, gpt-3.5-turbo
-                                    # gemini: gemini-1.5-flash, gemini-1.5-pro
+  model: llama3                     # ex.: llama3, llama3.2:3b-instruct, qwen2.5, deepseek-r1
+  host: http://localhost:11434      # opcional; deixe ausente para padrão do Ollama
   temperature: 0.2                  # 0=determinístico, 1=criativo
   system_prompt: |
     Você é um(a) despachante logístico hospitalar. Gere instruções detalhadas
@@ -529,17 +524,14 @@ Fitness
         │  INSTRUCTION_TEMPLATE│
         └──────────┬──────────┘
                    │
-        ┌──────────▼──────────────────┐
-        │  render.py                  │ (cliente LLM)
-        │  LLMClient.complete()       │
-        └──────────┬──────────────────┘
-                   │
-      ┌────────────┼────────────┐
-      │            │            │
-   ┌──▼──┐    ┌────▼────┐   ┌──▼──┐
-   │OpenAI│    │ Gemini  │   │Local │
-   │      │    │ API     │   │Stub  │
-   └─────┘    └─────────┘   └──────┘
+          ┌──────────▼──────────────────┐
+          │  render.py                  │ (cliente LLM)
+          │  LLMClient.complete()       │
+          └──────────┬──────────────────┘
+             │
+           ┌─────▼─────┐
+           │  Ollama   │ (cliente local)
+           └───────────┘
 ```
 
 ### Fluxo Passo a Passo
@@ -560,18 +552,21 @@ prompt = INSTRUCTION_TEMPLATE.format(
 )
 ```
 
-**2. Chamada ao Modelo**
+**2. Chamada ao Modelo (Ollama local)**
 
 ```python
-# Provider: OpenAI
-response = client.chat.completions.create(
-    model="gpt-4o-mini",
-    temperature=0.2,  # Determinístico
-    messages=[
-        {"role": "system", "content": SYSTEM_PROMPT},
-        {"role": "user", "content": prompt}
-    ]
+from ollama import Client
+
+client = Client(host="http://localhost:11434")  # ou use padrão se já exportado OLLAMA_HOST
+response = client.chat(
+  model="llama3",
+  messages=[
+    {"role": "system", "content": SYSTEM_PROMPT},
+    {"role": "user", "content": prompt},
+  ],
+  options={"temperature": 0.2},
 )
+text = response.message.content
 ```
 
 **3. Resposta do Modelo**
@@ -601,25 +596,11 @@ Resumo:
 - Status: VIÁVEL ✅
 ```
 
-### Provedores Suportados
+### Modelos (Ollama)
 
-| Provider | Modelo | Custo | API Required |
-|----------|--------|-------|--------------|
-| **OpenAI** | gpt-4o-mini | $0.15/1M input | Sim |
-| **OpenAI** | gpt-3.5-turbo | $0.50/1M input | Sim |
-| **Gemini** | gemini-1.5-flash | Grátis (500req/dia) | Sim |
-| **Local** | Stub | Grátis | Não |
-
-### Comportamento Sem API Key
-
-Se nenhuma chave for fornecida e o provider for "local":
-
-```python
-def complete(self, system, user):
-    return "[LLM local/mock: nenhuma chamada externa realizada]"
-```
-
-**Benefício:** Não quebra o fluxo; permite testes sem custos.
+- Rode `ollama serve` antes de executar a aplicação.
+- Baixe o modelo desejado: `ollama pull llama3` (ou outro).
+- Opcionalmente configure `OLLAMA_HOST` ou use o campo "Host" na UI se o serviço não estiver em `http://localhost:11434`.
 
 ### Guardrails
 
@@ -907,17 +888,15 @@ Na UI, verifique o campo "Config YAML" e informe o caminho correto (relativo ou 
 
 ---
 
-### ❌ "[LLM desabilitado: configure chave e provider]"
+### ❌ "[LLM desabilitado: instale o pacote 'ollama' (pip install ollama) e execute 'ollama serve']"
 
-**Causa:** Chave de API não fornecida e provider não é "local"
+**Causa:** Cliente Ollama Python não instalado ou serviço `ollama serve` não iniciado/modelo não baixado.
 
 **Solução:**
-1. Na UI Streamlit: cole a chave no campo "API Key"
-2. Ou defina variável de ambiente:
-   ```bash
-   setx OPENAI_API_KEY "sua_chave"
-   ```
-3. Ou mude provider para "local" (stub, sem custo)
+1. Instale o cliente: `pip install ollama`
+2. Inicie o serviço: `ollama serve`
+3. Baixe o modelo: `ollama pull llama3` (ou outro escolhido)
+4. Na UI, informe o modelo (ex.: llama3) e, se usar host customizado, preencha o campo Host; deixe em branco para `http://localhost:11434`.
 
 ---
 
@@ -972,8 +951,8 @@ Abaixo estão as principais palavras-chave e conceitos do projeto, facilitando p
 - `Seed`, `Population Size`, `Generations`, `Mutation Rate`, `Crossover Rate`
 
 ### IA Generativa & LLM
-- `LLM`, `Large Language Model`, `OpenAI`, `Gemini`, `GPT`, `API Key`
-- `gpt-4o-mini`, `gpt-3.5-turbo`, `gemini-1.5-flash`, `Prompt`, `Template`
+- `LLM`, `Large Language Model`, `Ollama`, `GPT`
+- `llama3`, `llama3.2:3b-instruct`, `qwen2.5`, `deepseek-r1`, `Prompt`, `Template`
 - `Instruções operacionais`, `Operational Instructions`, `Relatório`, `Report`
 - `Despachante`, `Logístico`, `Hospital`
 
@@ -1001,7 +980,7 @@ Abaixo estão as principais palavras-chave e conceitos do projeto, facilitando p
 
 ### Problemas Comuns
 - `Troubleshooting`, `Erro`, `Error`, `Warning`, `Aviso`
-- `API Key`, `Config não encontrado`, `Mapa vazio`, `Fitness não melhora`
+- `LLM desabilitado`, `Config não encontrado`, `Mapa vazio`, `Fitness não melhora`
 - `ModuleNotFoundError`, `FileNotFoundError`, `ValueError`
 
 ---

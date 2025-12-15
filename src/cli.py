@@ -14,6 +14,7 @@ from src.io.load_data import load_nodes, validate_nodes
 from src.io.output_saver import save_convergence, save_json, save_log_records, save_md
 from src.viz.charts import plot_convergence
 from src.viz.map import render_map
+from src.llm.render import LLMClient, executive_report, generate_all_instructions
 
 
 def build_solution_json(routes, convergence, depot: Node, nodes: Dict[int, Node], fitness: float):
@@ -95,9 +96,62 @@ def run():
         ]
         save_log_records(logs, cfg.logging["jsonl_path"])
 
+    # =========================================================================
+    # GERAÇÃO DE CONTEÚDO VIA LLM
+    # =========================================================================
+    llm_config = getattr(cfg, "llm", None) or {}
+    generate_instructions = llm_config.get("generate_instructions", False)
+    generate_report = llm_config.get("generate_report", False)
+    
+    report_content = ""
+    instructions_content = ""
+    
+    if generate_instructions or generate_report:
+        # Inicializar cliente LLM
+        llm_client = LLMClient(
+            model=llm_config.get("model", "llama3"),
+            temperature=llm_config.get("temperature", 0.2),
+            host=llm_config.get("host"),
+        )
+        
+        departure_time = llm_config.get("departure_time", "08:00")
+        vehicle_speed = cfg.vrp.vehicle_speed_kmh if hasattr(cfg.vrp, "vehicle_speed_kmh") else 60.0
+        
+        if generate_instructions:
+            print("\n[*] Gerando instrucoes para motoristas...")
+            instructions_content = generate_all_instructions(
+                client=llm_client,
+                solution_json=solution_json,
+                nodes_map=nodes_with_depot,
+                depot=cfg.depot,
+                departure_time=departure_time,
+                vehicle_speed_kmh=vehicle_speed,
+            )
+            
+            # Salvar instruções em arquivo separado
+            instructions_path = cfg.output.get("report_md", "outputs/report.md").replace(".md", "_instructions.md")
+            save_md(instructions_content, instructions_path)
+            print(f"   [OK] Instrucoes salvas em: {instructions_path}")
+        
+        if generate_report:
+            print("\n[*] Gerando relatorio executivo...")
+            report_content = executive_report(
+                client=llm_client,
+                solution_json=solution_json,
+                nodes_map=nodes_with_depot,
+                depot=cfg.depot,
+                baseline_json=None,  # TODO: carregar baseline de execução anterior se existir
+            )
+    
+    # Salvar relatório (com ou sem LLM)
     if cfg.output.get("report_md"):
-        report = "# Resumo Executivo\n\n" + json.dumps(solution_json, indent=2, ensure_ascii=False)
-        save_md(report, cfg.output["report_md"])
+        if report_content:
+            save_md(report_content, cfg.output["report_md"])
+            print(f"   [OK] Relatorio salvo em: {cfg.output['report_md']}")
+        else:
+            # Fallback: salvar JSON formatado se LLM não estiver habilitado
+            report = "# Resumo Executivo\n\n" + json.dumps(solution_json, indent=2, ensure_ascii=False)
+            save_md(report, cfg.output["report_md"])
 
     print(json.dumps(solution_json, indent=2, ensure_ascii=False))
 

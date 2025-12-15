@@ -145,7 +145,8 @@ def main():
         st.image(png)
 
         st.subheader("🗺️ Mapa")
-        map_html = build_map_html(routes, cfg.depot, {cfg.depot.node_id: cfg.depot, **load_nodes(data_path)})
+        nodes_map_ui = {cfg.depot.node_id: cfg.depot, **load_nodes(data_path)}
+        map_html = build_map_html(routes, cfg.depot, nodes_map_ui)
         st.components.v1.html(map_html, height=600)
 
         # LLM instructions for first route (Ollama local)
@@ -157,7 +158,14 @@ def main():
                     temperature=cfg.llm.get("temperature", 0.2),
                     host=host_input or cfg.llm.get("host"),
                 )
-                instr = instructions_for_route(client, solution["routes"][0]["vehicle_id"], solution["routes"][0])
+                instr = instructions_for_route(
+                    client=client,
+                    route=solution["routes"][0],
+                    nodes_map=nodes_map_ui,
+                    depot=cfg.depot,
+                    departure_time=cfg.llm.get("departure_time", "08:00"),
+                    vehicle_speed_kmh=cfg.vrp.vehicle_speed_kmh,
+                )
                 st.markdown(instr)
             except Exception as e:
                 st.error(f"❌ Erro ao chamar LLM (Ollama): {e}")

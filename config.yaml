@@ -1,45 +1,49 @@
+# Configuração do otimizador VRP + LLM
+# Observação: Comentários são ignorados pelo parser YAML e não afetam o código.
+
 ga:
-  seed: 42
-  population_size: 150
-  generations: 700
-  selection: tournament
-  tournament_k: 7
-  crossover: PMX
-  crossover_rate: 0.9
-  mutation: inversion
-  mutation_rate: 0.1
-  elitism: 2
-  stagnation_patience: 30
+  seed: 42                  # semente para reprodutibilidade dos experimentos
+  population_size: 200      # tamanho da população do algoritmo genético (AG)
+  generations: 800          # número máximo de gerações do AG
+  selection: tournament     # método de seleção: tournament | roulette
+  tournament_k: 2           # tamanho do torneio (se selection=tournament)
+  crossover: PMX            # operador de crossover: OX | PMX (partially matched)
+  crossover_rate: 0.3       # probabilidade de aplicar crossover
+  mutation: inversion       # operador de mutação: swap | inversion | relocate | two_opt
+  mutation_rate: 0.2        # probabilidade de aplicar mutação
+  elitism: 3                # número de indivíduos elite preservados por geração
+  stagnation_patience: 30   # gerações sem melhora antes do early stopping
 vrp:
-  vehicles: 8
-  vehicle_capacity: 150
-  vehicle_range_km: 600
-  vehicle_speed_kmh: 60
-  service_time_min: 10
-  work_time_window: ["08:00", "20:00"]
+  vehicles: 6                        # quantidade de veículos disponíveis
+  vehicle_capacity: 200              # capacidade de carga por veículo (kg)
+  vehicle_range_km: 150              # autonomia máxima por veículo (km)
+  vehicle_speed_kmh: 80              # velocidade média usada para ETAs (km/h)
+  service_time_min: 30               # tempo médio de atendimento por parada (min)
+  work_time_window: ["08:00", "17:00"]  # janela operacional global [início, fim]
 weights:
-  w_distance: 1.0
-  w_capacity: 60.0
-  w_range: 60.0
-  w_priority: 25.0
-  w_time: 20.0
+  w_distance: 1.0    # peso para distância total (objetivo principal)
+  w_capacity: 60.0   # penalidade por violar capacidade do veículo
+  w_range: 60.0      # penalidade por violar autonomia/alcance do veículo
+  w_priority: 25.0   # penalidade por atrasar/violar entregas prioritárias
+  w_time: 20.0       # penalidade por exceder janela de trabalho/tempo
 depot:
-  name: "Deposito Central"
-  latitude: -23.5
-  longitude: -46.6
-  demanda: 0
-  prioridade: 1
-  tempo_atendimento_min: 0
+  name: "Deposito Central"  # nome de referência do depósito
+  latitude: -23.5            # latitude do depósito
+  longitude: -46.6           # longitude do depósito
+  demanda: 0                 # demanda do depósito (mantenha 0)
+  prioridade: 1              # prioridade do depósito (1=regular)
+  tempo_atendimento_min: 0   # tempo de serviço no depósito (min)
 llm:
-  model: deepseek-r1            # modelo disponível localmente no Ollama (ex.: llama3, llama3.2:3b-instruct, qwen2.5)
-  host: null               # opcional: http://localhost:11434 (deixe null para usar padrão do Ollama)
-  temperature: 0.2
-  system_prompt: |
-    Você é um(a) despachante logístico hospitalar. Gere instruções detalhadas e seguras com base no JSON fornecido, sem inventar dados. Priorize medicamentos críticos e oriente sobre segurança e conformidade.
+  model: deepseek-r1            # modelo local do Ollama (ex.: llama3, llama3.2:3b-instruct, qwen2.5)
+  host: null                    # opcional: http://localhost:11434 (null usa padrão do Ollama)
+  temperature: 0.2              # criatividade/variação do texto (0.0-1.0)
+  departure_time: "08:00"       # horário de partida para ETAs acumulativos nas instruções
+  generate_instructions: true   # habilita geração de instruções para motoristas (LLM)
+  generate_report: true         # habilita geração de relatório executivo (LLM)
 logging:
-  jsonl_path: outputs/run_log.jsonl
+  jsonl_path: outputs/run_log.jsonl   # trilha de execução (um registro por execução)
 output:
-  solution_json: outputs/solution.json
-  report_md: outputs/report.md
-  map_html: outputs/map.html
-  convergence_png: outputs/convergence.png
+  solution_json: outputs/solution.json     # solução VRP (rotas, métricas) em JSON
+  report_md: outputs/report.md             # relatório executivo (LLM/fallback) em Markdown
+  map_html: outputs/map.html               # mapa das rotas (Folium)
+  convergence_png: outputs/convergence.png # gráfico de convergência do AG

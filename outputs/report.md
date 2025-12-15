@@ -1,353 +1,103 @@
-# Resumo Executivo
+# RELATORIO DE OTIMIZACAO DE ROTAS
 
-{
-  "depot": {
-    "id": 0,
-    "name": "Deposito Central"
-  },
-  "routes": [
-    {
-      "vehicle_id": "V1",
-      "sequence": [
-        0,
-        25,
-        8,
-        9,
-        18,
-        6,
-        7,
-        24,
-        26,
-        0
-      ],
-      "distance_km": 7013.79572430873,
-      "time_min": 7081.79572430873,
-      "load": 79.0,
-      "penalties": {
-        "capacity": 0.0,
-        "range": 5813.79572430873,
-        "priority": 7.0,
-        "time": 28054.050346866672
-      }
-    },
-    {
-      "vehicle_id": "V2",
-      "sequence": [
-        0,
-        11,
-        5,
-        17,
-        2,
-        13,
-        4,
-        15,
-        19,
-        21,
-        0
-      ],
-      "distance_km": 8598.261875797432,
-      "time_min": 8662.261875797432,
-      "load": 68.0,
-      "penalties": {
-        "capacity": 0.0,
-        "range": 7398.261875797432,
-        "priority": 5.85,
-        "time": 95290.18351965
-      }
-    },
-    {
-      "vehicle_id": "V3",
-      "sequence": [
-        0,
-        3,
-        22,
-        27,
-        23,
-        1,
-        14,
-        20,
-        0
-      ],
-      "distance_km": 4882.776941581724,
-      "time_min": 4948.776941581724,
-      "load": 79.0,
-      "penalties": {
-        "capacity": 0.0,
-        "range": 3682.776941581724,
-        "priority": 12.75,
-        "time": 30428.54583976667
-      }
-    },
-    {
-      "vehicle_id": "V4",
-      "sequence": [
-        0,
-        12,
-        16,
-        10,
-        0
-      ],
-      "distance_km": 5162.629334926736,
-      "time_min": 5190.629334926736,
-      "load": 30.0,
-      "penalties": {
-        "capacity": 0.0,
-        "range": 3962.629334926736,
-        "priority": 2.25,
-        "time": 18052.540794916666
-      }
-    },
-    {
-      "vehicle_id": "V5",
-      "sequence": [
-        0,
-        0
-      ],
-      "distance_km": 0.0,
-      "time_min": 0.0,
-      "load": 0,
-      "penalties": {
-        "capacity": 0.0,
-        "range": 0.0,
-        "priority": 0.0,
-        "time": 0.0
-      }
-    }
-  ],
-  "global_metrics": {
-    "distance_total_km": 25657.463876614624,
-    "vehicles_used": 4,
-    "distance_mean_km": 5131.492775322925,
-    "distance_std_km": 2896.7775041329774,
-    "load_mean": 51.2,
-    "load_std": 31.301118190888964,
-    "best_fitness": 4714307.956497492
-  },
-  "convergence": [
-    {
-      "gen": 1,
-      "best_fitness": 5009975.673708459
-    },
-    {
-      "gen": 2,
-      "best_fitness": 5009975.673708459
-    },
-    {
-      "gen": 3,
-      "best_fitness": 4990482.555980614
-    },
-    {
-      "gen": 4,
-      "best_fitness": 4990482.555980614
-    },
-    {
-      "gen": 5,
-      "best_fitness": 4990482.555980614
-    },
-    {
-      "gen": 6,
-      "best_fitness": 4847126.159030213
-    },
-    {
-      "gen": 7,
-      "best_fitness": 4827633.041302368
-    },
-    {
-      "gen": 8,
-      "best_fitness": 4827633.041302368
-    },
-    {
-      "gen": 9,
-      "best_fitness": 4827633.041302368
-    },
-    {
-      "gen": 10,
-      "best_fitness": 4714307.956497492
-    },
-    {
-      "gen": 11,
-      "best_fitness": 4714307.956497492
-    },
-    {
-      "gen": 12,
-      "best_fitness": 4714307.956497492
-    },
-    {
-      "gen": 13,
-      "best_fitness": 4714307.956497492
-    },
-    {
-      "gen": 14,
-      "best_fitness": 4714307.956497492
-    },
-    {
-      "gen": 15,
-      "best_fitness": 4714307.956497492
-    },
-    {
-      "gen": 16,
-      "best_fitness": 4714307.956497492
-    },
-    {
-      "gen": 17,
-      "best_fitness": 4714307.956497492
-    },
-    {
-      "gen": 18,
-      "best_fitness": 4714307.956497492
-    },
-    {
-      "gen": 19,
-      "best_fitness": 4714307.956497492
-    },
-    {
-      "gen": 20,
-      "best_fitness": 4714307.956497492
-    },
-    {
-      "gen": 21,
-      "best_fitness": 4714307.956497492
-    },
-    {
-      "gen": 22,
-      "best_fitness": 4714307.956497492
-    },
-    {
-      "gen": 23,
-      "best_fitness": 4714307.956497492
-    },
-    {
-      "gen": 24,
-      "best_fitness": 4714307.956497492
-    },
-    {
-      "gen": 25,
-      "best_fitness": 4714307.956497492
-    },
-    {
-      "gen": 26,
-      "best_fitness": 4704649.306469418
-    },
-    {
-      "gen": 27,
-      "best_fitness": 4704649.306469418
-    },
-    {
-      "gen": 28,
-      "best_fitness": 4704649.306469418
-    },
-    {
-      "gen": 29,
-      "best_fitness": 4704649.306469418
-    },
-    {
-      "gen": 30,
-      "best_fitness": 4704649.306469418
-    },
-    {
-      "gen": 31,
-      "best_fitness": 4704649.306469418
-    },
-    {
-      "gen": 32,
-      "best_fitness": 4704649.306469418
-    },
-    {
-      "gen": 33,
-      "best_fitness": 4704649.306469418
-    },
-    {
-      "gen": 34,
-      "best_fitness": 4704649.306469418
-    },
-    {
-      "gen": 35,
-      "best_fitness": 4704649.306469418
-    },
-    {
-      "gen": 36,
-      "best_fitness": 4704649.306469418
-    },
-    {
-      "gen": 37,
-      "best_fitness": 4704649.306469418
-    },
-    {
-      "gen": 38,
-      "best_fitness": 4704649.306469418
-    },
-    {
-      "gen": 39,
-      "best_fitness": 4704649.306469418
-    },
-    {
-      "gen": 40,
-      "best_fitness": 4704649.306469418
-    },
-    {
-      "gen": 41,
-      "best_fitness": 4704649.306469418
-    },
-    {
-      "gen": 42,
-      "best_fitness": 4704649.306469418
-    },
-    {
-      "gen": 43,
-      "best_fitness": 4704649.306469418
-    },
-    {
-      "gen": 44,
-      "best_fitness": 4704649.306469418
-    },
-    {
-      "gen": 45,
-      "best_fitness": 4704649.306469418
-    },
-    {
-      "gen": 46,
-      "best_fitness": 4704649.306469418
-    },
-    {
-      "gen": 47,
-      "best_fitness": 4704649.306469418
-    },
-    {
-      "gen": 48,
-      "best_fitness": 4704649.306469418
-    },
-    {
-      "gen": 49,
-      "best_fitness": 4704649.306469418
-    },
-    {
-      "gen": 50,
-      "best_fitness": 4704649.306469418
-    },
-    {
-      "gen": 51,
-      "best_fitness": 4704649.306469418
-    },
-    {
-      "gen": 52,
-      "best_fitness": 4704649.306469418
-    },
-    {
-      "gen": 53,
-      "best_fitness": 4704649.306469418
-    },
-    {
-      "gen": 54,
-      "best_fitness": 4704649.306469418
-    },
-    {
-      "gen": 55,
-      "best_fitness": 4704649.306469418
-    },
-    {
-      "gen": 56,
-      "best_fitness": 4704649.306469418
-    }
-  ],
-  "feasibility": false
-}
+**Data de Geracao:** 15/12/2025 19:29
+**Periodo:** Diário
+
+---
+
+## 1. RESUMO EXECUTIVO
+
+Esta otimizacao utilizou **5 veiculos** para realizar as entregas, 
+percorrendo um total de **30870.77 km** em aproximadamente 
+**23537 minutos**.
+
+---
+
+## 2. KPIs PRINCIPAIS
+
+| Indicador | Valor | Variacao vs Baseline |
+|-----------|-------|---------------------|
+| Distancia Total (km) | 30870.77 | - |
+| Tempo Total (min) | 23537 | - |
+| Veiculos Utilizados | 5 | - |
+| Carga Media (kg) | 82.80 | - |
+| Desvio Padrao Carga | 18.31 | - |
+| Fitness Final | 6002046.94 | - |
+
+---
+
+## 3. ANALISE DE VIOLACOES
+
+- **V1**: Autonomia excedida (penalidade: 6226.62)
+- **V1**: Prioridades não otimizadas (penalidade: 14.25)
+- **V1**: Janela de tempo violada (penalidade: 75460.70)
+- **V2**: Autonomia excedida (penalidade: 8126.95)
+- **V2**: Prioridades não otimizadas (penalidade: 15.55)
+- **V2**: Janela de tempo violada (penalidade: 44553.58)
+- **V3**: Autonomia excedida (penalidade: 3530.76)
+- **V3**: Prioridades não otimizadas (penalidade: 11.25)
+- **V3**: Janela de tempo violada (penalidade: 19173.86)
+- **V4**: Autonomia excedida (penalidade: 4314.41)
+- **V4**: Prioridades não otimizadas (penalidade: 15.75)
+- **V4**: Janela de tempo violada (penalidade: 37473.28)
+- **V5**: Autonomia excedida (penalidade: 5672.02)
+- **V5**: Prioridades não otimizadas (penalidade: 6.15)
+- **V5**: Janela de tempo violada (penalidade: 38206.40)
+
+---
+
+## 4. DETALHAMENTO POR VEICULO
+
+### V1
+- **Rota:** 🏠 Depósito → Londrina → Ribeirão Preto → Uberlândia → Goiânia → Brasília → Palmas → Marabá → Belém → Ananindeua → Macapá → Santarém → Parintins → 🏠 Depósito
+- **Distância:** 6826.62 km
+- **Tempo:** 5210 min
+- **Carga:** 92.0 kg
+
+### V2
+- **Rota:** 🏠 Depósito → Sorocaba → Paulínia → Campinas → Jundiaí → Rio de Janeiro → Belo Horizonte → Itacoatiara → Manaus → Boa Vista → Porto Velho → Rio Branco → 🏠 Depósito
+- **Distância:** 8726.95 km
+- **Tempo:** 6631 min
+- **Carga:** 97.0 kg
+
+### V3
+- **Rota:** 🏠 Depósito → Santos → Curitiba → Joinville → Blumenau → Florianópolis → Caxias do Sul → Porto Alegre → Maringá → Campo Grande → Cuiabá → 🏠 Depósito
+- **Distância:** 4130.76 km
+- **Tempo:** 3178 min
+- **Carga:** 85.0 kg
+
+### V4
+- **Rota:** 🏠 Depósito → São Paulo → Guarulhos → Vitória → Salvador → Feira de Santana → Maceió → Recife → João Pessoa → Natal → 🏠 Depósito
+- **Distância:** 4914.41 km
+- **Tempo:** 3766 min
+- **Carga:** 93.0 kg
+
+### V5
+- **Rota:** 🏠 Depósito → Aracaju → Picos → Teresina → Parnaíba → Fortaleza → São Luís → 🏠 Depósito
+- **Distância:** 6272.02 km
+- **Tempo:** 4752 min
+- **Carga:** 47.0 kg
+
+
+---
+
+## 5. ANALISE DE CONVERGENCIA
+
+O algoritmo executou **208 geracoes**.
+
+- **Fitness inicial:** 7691321.13
+- **Fitness final:** 5979223.38
+- **Melhoria:** 22.3%
+- **Parou por:** Convergência por estagnação
+
+---
+
+## 6. RECOMENDACOES
+
+Com base na analise dos dados:
+
+1. **Autonomia:** Todas as rotas excedem a autonomia configurada. Considere aumentar o parametro `vehicle_range_km` ou adicionar mais veiculos.
+
+2. **Balanceamento:** O desvio padrao de carga indica desbalanceamento entre veiculos. Ajuste os pesos da funcao fitness.
+
+3. **Parametros AG:** Se a convergencia estagnou cedo, aumente `mutation_rate` ou `stagnation_patience`.

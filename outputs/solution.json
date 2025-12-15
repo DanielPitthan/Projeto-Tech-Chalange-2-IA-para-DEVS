@@ -8,343 +8,972 @@
       "vehicle_id": "V1",
       "sequence": [
         0,
-        25,
-        8,
-        9,
-        18,
-        6,
-        7,
-        24,
-        26,
+        37,
+        36,
+        34,
+        11,
+        5,
+        17,
+        43,
+        2,
+        44,
+        13,
+        42,
+        47,
         0
       ],
-      "distance_km": 7013.79572430873,
-      "time_min": 7081.79572430873,
-      "load": 79.0,
+      "distance_km": 6826.618318113837,
+      "time_min": 5209.9637385853775,
+      "load": 92.0,
       "penalties": {
         "capacity": 0.0,
-        "range": 5813.79572430873,
-        "priority": 7.0,
-        "time": 28054.050346866672
+        "range": 6226.618318113837,
+        "priority": 14.25,
+        "time": 75460.70260566667
       }
     },
     {
       "vehicle_id": "V2",
       "sequence": [
         0,
-        11,
-        5,
-        17,
-        2,
-        13,
-        4,
+        33,
+        31,
+        29,
+        28,
+        22,
+        3,
+        48,
         15,
+        4,
         19,
         21,
         0
       ],
-      "distance_km": 8598.261875797432,
-      "time_min": 8662.261875797432,
-      "load": 68.0,
+      "distance_km": 8726.949348255184,
+      "time_min": 6631.212011191388,
+      "load": 97.0,
       "penalties": {
         "capacity": 0.0,
-        "range": 7398.261875797432,
-        "priority": 5.85,
-        "time": 95290.18351965
+        "range": 8126.949348255184,
+        "priority": 15.55,
+        "time": 44553.580776116665
       }
     },
     {
       "vehicle_id": "V3",
       "sequence": [
         0,
-        3,
-        22,
-        27,
-        23,
-        1,
-        14,
-        20,
+        32,
+        8,
+        35,
+        39,
+        9,
+        41,
+        18,
+        38,
+        6,
+        7,
         0
       ],
-      "distance_km": 4882.776941581724,
-      "time_min": 4948.776941581724,
-      "load": 79.0,
+      "distance_km": 4130.7648701275575,
+      "time_min": 3178.073652595668,
+      "load": 85.0,
       "penalties": {
         "capacity": 0.0,
-        "range": 3682.776941581724,
-        "priority": 12.75,
-        "time": 30428.54583976667
+        "range": 3530.7648701275575,
+        "priority": 11.25,
+        "time": 19173.863926416667
       }
     },
     {
       "vehicle_id": "V4",
       "sequence": [
         0,
+        25,
+        30,
+        27,
+        23,
+        40,
+        14,
+        20,
         12,
         16,
-        10,
         0
       ],
-      "distance_km": 5162.629334926736,
-      "time_min": 5190.629334926736,
-      "load": 30.0,
+      "distance_km": 4914.411088391655,
+      "time_min": 3765.808316293741,
+      "load": 93.0,
       "penalties": {
         "capacity": 0.0,
-        "range": 3962.629334926736,
-        "priority": 2.25,
-        "time": 18052.540794916666
+        "range": 4314.411088391655,
+        "priority": 15.75,
+        "time": 37473.279552366665
       }
     },
     {
       "vehicle_id": "V5",
       "sequence": [
         0,
+        1,
+        46,
+        26,
+        45,
+        10,
+        24,
         0
       ],
-      "distance_km": 0.0,
-      "time_min": 0.0,
-      "load": 0,
+      "distance_km": 6272.021758029276,
+      "time_min": 4752.016318521956,
+      "load": 47.0,
       "penalties": {
         "capacity": 0.0,
-        "range": 0.0,
-        "priority": 0.0,
-        "time": 0.0
+        "range": 5672.021758029276,
+        "priority": 6.15,
+        "time": 38206.39827355
       }
     }
   ],
   "global_metrics": {
-    "distance_total_km": 25657.463876614624,
-    "vehicles_used": 4,
-    "distance_mean_km": 5131.492775322925,
-    "distance_std_km": 2896.7775041329774,
-    "load_mean": 51.2,
-    "load_std": 31.301118190888964,
-    "best_fitness": 4714307.956497492
+    "distance_total_km": 30870.76538291751,
+    "vehicles_used": 5,
+    "distance_mean_km": 6174.153076583501,
+    "distance_std_km": 1594.6437353823458,
+    "load_mean": 82.8,
+    "load_std": 18.312837027615355,
+    "best_fitness": 6002046.941040302
   },
   "convergence": [
     {
       "gen": 1,
-      "best_fitness": 5009975.673708459
+      "best_fitness": 7691321.129551767
     },
     {
       "gen": 2,
-      "best_fitness": 5009975.673708459
+      "best_fitness": 7651337.879076715
     },
     {
       "gen": 3,
-      "best_fitness": 4990482.555980614
+      "best_fitness": 7651337.879076715
     },
     {
       "gen": 4,
-      "best_fitness": 4990482.555980614
+      "best_fitness": 7651337.879076715
     },
     {
       "gen": 5,
-      "best_fitness": 4990482.555980614
+      "best_fitness": 7651337.879076715
     },
     {
       "gen": 6,
-      "best_fitness": 4847126.159030213
+      "best_fitness": 7593885.197552707
     },
     {
       "gen": 7,
-      "best_fitness": 4827633.041302368
+      "best_fitness": 7558416.433251711
     },
     {
       "gen": 8,
-      "best_fitness": 4827633.041302368
+      "best_fitness": 7484407.6934549585
     },
     {
       "gen": 9,
-      "best_fitness": 4827633.041302368
+      "best_fitness": 7356175.262527423
     },
     {
       "gen": 10,
-      "best_fitness": 4714307.956497492
+      "best_fitness": 7159246.482677599
     },
     {
       "gen": 11,
-      "best_fitness": 4714307.956497492
+      "best_fitness": 6946113.966973271
     },
     {
       "gen": 12,
-      "best_fitness": 4714307.956497492
+      "best_fitness": 6600876.990686528
     },
     {
       "gen": 13,
-      "best_fitness": 4714307.956497492
+      "best_fitness": 6600876.990686528
     },
     {
       "gen": 14,
-      "best_fitness": 4714307.956497492
+      "best_fitness": 6600876.990686528
     },
     {
       "gen": 15,
-      "best_fitness": 4714307.956497492
+      "best_fitness": 6600876.990686528
     },
     {
       "gen": 16,
-      "best_fitness": 4714307.956497492
+      "best_fitness": 6600876.990686528
     },
     {
       "gen": 17,
-      "best_fitness": 4714307.956497492
+      "best_fitness": 6497080.74305728
     },
     {
       "gen": 18,
-      "best_fitness": 4714307.956497492
+      "best_fitness": 6497080.74305728
     },
     {
       "gen": 19,
-      "best_fitness": 4714307.956497492
+      "best_fitness": 6497080.74305728
     },
     {
       "gen": 20,
-      "best_fitness": 4714307.956497492
+      "best_fitness": 6362680.586997779
     },
     {
       "gen": 21,
-      "best_fitness": 4714307.956497492
+      "best_fitness": 6362680.586997779
     },
     {
       "gen": 22,
-      "best_fitness": 4714307.956497492
+      "best_fitness": 6362680.586997779
     },
     {
       "gen": 23,
-      "best_fitness": 4714307.956497492
+      "best_fitness": 6362680.586997779
     },
     {
       "gen": 24,
-      "best_fitness": 4714307.956497492
+      "best_fitness": 6362680.586997779
     },
     {
       "gen": 25,
-      "best_fitness": 4714307.956497492
+      "best_fitness": 6362680.586997779
     },
     {
       "gen": 26,
-      "best_fitness": 4704649.306469418
+      "best_fitness": 6362680.586997779
     },
     {
       "gen": 27,
-      "best_fitness": 4704649.306469418
+      "best_fitness": 6362680.586997779
     },
     {
       "gen": 28,
-      "best_fitness": 4704649.306469418
+      "best_fitness": 6362680.586997779
     },
     {
       "gen": 29,
-      "best_fitness": 4704649.306469418
+      "best_fitness": 6362680.586997779
     },
     {
       "gen": 30,
-      "best_fitness": 4704649.306469418
+      "best_fitness": 6356508.236586652
     },
     {
       "gen": 31,
-      "best_fitness": 4704649.306469418
+      "best_fitness": 6355642.54844044
     },
     {
       "gen": 32,
-      "best_fitness": 4704649.306469418
+      "best_fitness": 6158445.238727484
     },
     {
       "gen": 33,
-      "best_fitness": 4704649.306469418
+      "best_fitness": 6158445.238727484
     },
     {
       "gen": 34,
-      "best_fitness": 4704649.306469418
+      "best_fitness": 6158445.238727484
     },
     {
       "gen": 35,
-      "best_fitness": 4704649.306469418
+      "best_fitness": 6138847.996025597
     },
     {
       "gen": 36,
-      "best_fitness": 4704649.306469418
+      "best_fitness": 6138847.996025597
     },
     {
       "gen": 37,
-      "best_fitness": 4704649.306469418
+      "best_fitness": 6138847.996025597
     },
     {
       "gen": 38,
-      "best_fitness": 4704649.306469418
+      "best_fitness": 6138847.996025597
     },
     {
       "gen": 39,
-      "best_fitness": 4704649.306469418
+      "best_fitness": 6138847.996025597
     },
     {
       "gen": 40,
-      "best_fitness": 4704649.306469418
+      "best_fitness": 6138847.996025597
     },
     {
       "gen": 41,
-      "best_fitness": 4704649.306469418
+      "best_fitness": 6138847.996025597
     },
     {
       "gen": 42,
-      "best_fitness": 4704649.306469418
+      "best_fitness": 6086441.631140449
     },
     {
       "gen": 43,
-      "best_fitness": 4704649.306469418
+      "best_fitness": 6086441.631140449
     },
     {
       "gen": 44,
-      "best_fitness": 4704649.306469418
+      "best_fitness": 6086441.631140449
     },
     {
       "gen": 45,
-      "best_fitness": 4704649.306469418
+      "best_fitness": 6086441.631140449
     },
     {
       "gen": 46,
-      "best_fitness": 4704649.306469418
+      "best_fitness": 6080269.280729322
     },
     {
       "gen": 47,
-      "best_fitness": 4704649.306469418
+      "best_fitness": 6080269.280729322
     },
     {
       "gen": 48,
-      "best_fitness": 4704649.306469418
+      "best_fitness": 6079404.879099062
     },
     {
       "gen": 49,
-      "best_fitness": 4704649.306469418
+      "best_fitness": 6079404.879099062
     },
     {
       "gen": 50,
-      "best_fitness": 4704649.306469418
+      "best_fitness": 6079404.879099062
     },
     {
       "gen": 51,
-      "best_fitness": 4704649.306469418
+      "best_fitness": 6079404.879099062
     },
     {
       "gen": 52,
-      "best_fitness": 4704649.306469418
+      "best_fitness": 6073485.008536186
     },
     {
       "gen": 53,
-      "best_fitness": 4704649.306469418
+      "best_fitness": 6073485.008536186
     },
     {
       "gen": 54,
-      "best_fitness": 4704649.306469418
+      "best_fitness": 6072088.885120611
     },
     {
       "gen": 55,
-      "best_fitness": 4704649.306469418
+      "best_fitness": 6065916.534709484
     },
     {
       "gen": 56,
-      "best_fitness": 4704649.306469418
+      "best_fitness": 6065916.534709484
+    },
+    {
+      "gen": 57,
+      "best_fitness": 6065916.534709484
+    },
+    {
+      "gen": 58,
+      "best_fitness": 6065916.534709484
+    },
+    {
+      "gen": 59,
+      "best_fitness": 6065916.534709484
+    },
+    {
+      "gen": 60,
+      "best_fitness": 6065916.534709484
+    },
+    {
+      "gen": 61,
+      "best_fitness": 6059350.311890167
+    },
+    {
+      "gen": 62,
+      "best_fitness": 6059350.311890167
+    },
+    {
+      "gen": 63,
+      "best_fitness": 6059350.311890167
+    },
+    {
+      "gen": 64,
+      "best_fitness": 6059350.311890167
+    },
+    {
+      "gen": 65,
+      "best_fitness": 6052782.837866142
+    },
+    {
+      "gen": 66,
+      "best_fitness": 6052782.837866142
+    },
+    {
+      "gen": 67,
+      "best_fitness": 6052782.837866142
+    },
+    {
+      "gen": 68,
+      "best_fitness": 6052782.837866142
+    },
+    {
+      "gen": 69,
+      "best_fitness": 6046216.615046827
+    },
+    {
+      "gen": 70,
+      "best_fitness": 6046216.615046827
+    },
+    {
+      "gen": 71,
+      "best_fitness": 6046216.615046827
+    },
+    {
+      "gen": 72,
+      "best_fitness": 6046216.615046827
+    },
+    {
+      "gen": 73,
+      "best_fitness": 6046216.615046827
+    },
+    {
+      "gen": 74,
+      "best_fitness": 6046216.615046827
+    },
+    {
+      "gen": 75,
+      "best_fitness": 6046216.615046827
+    },
+    {
+      "gen": 76,
+      "best_fitness": 6046216.615046827
+    },
+    {
+      "gen": 77,
+      "best_fitness": 6046216.615046827
+    },
+    {
+      "gen": 78,
+      "best_fitness": 6046216.615046827
+    },
+    {
+      "gen": 79,
+      "best_fitness": 6046216.615046827
+    },
+    {
+      "gen": 80,
+      "best_fitness": 6046216.615046827
+    },
+    {
+      "gen": 81,
+      "best_fitness": 6046216.615046827
+    },
+    {
+      "gen": 82,
+      "best_fitness": 6046216.615046827
+    },
+    {
+      "gen": 83,
+      "best_fitness": 6046216.615046827
+    },
+    {
+      "gen": 84,
+      "best_fitness": 6046216.615046827
+    },
+    {
+      "gen": 85,
+      "best_fitness": 6046216.615046827
+    },
+    {
+      "gen": 86,
+      "best_fitness": 6046216.615046827
+    },
+    {
+      "gen": 87,
+      "best_fitness": 6046216.615046827
+    },
+    {
+      "gen": 88,
+      "best_fitness": 6046216.615046827
+    },
+    {
+      "gen": 89,
+      "best_fitness": 6046216.615046827
+    },
+    {
+      "gen": 90,
+      "best_fitness": 6046216.615046827
+    },
+    {
+      "gen": 91,
+      "best_fitness": 6021558.273431897
+    },
+    {
+      "gen": 92,
+      "best_fitness": 6021558.273431897
+    },
+    {
+      "gen": 93,
+      "best_fitness": 6021558.273431897
+    },
+    {
+      "gen": 94,
+      "best_fitness": 6021558.273431897
+    },
+    {
+      "gen": 95,
+      "best_fitness": 6021558.273431897
+    },
+    {
+      "gen": 96,
+      "best_fitness": 6021558.273431897
+    },
+    {
+      "gen": 97,
+      "best_fitness": 6021558.273431897
+    },
+    {
+      "gen": 98,
+      "best_fitness": 6021558.273431897
+    },
+    {
+      "gen": 99,
+      "best_fitness": 6021558.273431897
+    },
+    {
+      "gen": 100,
+      "best_fitness": 6021558.273431897
+    },
+    {
+      "gen": 101,
+      "best_fitness": 6021558.273431897
+    },
+    {
+      "gen": 102,
+      "best_fitness": 6021558.273431897
+    },
+    {
+      "gen": 103,
+      "best_fitness": 6021558.273431897
+    },
+    {
+      "gen": 104,
+      "best_fitness": 6021558.273431897
+    },
+    {
+      "gen": 105,
+      "best_fitness": 6017238.801577945
+    },
+    {
+      "gen": 106,
+      "best_fitness": 6017238.801577945
+    },
+    {
+      "gen": 107,
+      "best_fitness": 6017238.801577945
+    },
+    {
+      "gen": 108,
+      "best_fitness": 6017238.801577945
+    },
+    {
+      "gen": 109,
+      "best_fitness": 6009104.611350288
+    },
+    {
+      "gen": 110,
+      "best_fitness": 6009104.611350288
+    },
+    {
+      "gen": 111,
+      "best_fitness": 6009104.611350288
+    },
+    {
+      "gen": 112,
+      "best_fitness": 6009104.611350288
+    },
+    {
+      "gen": 113,
+      "best_fitness": 6009104.611350288
+    },
+    {
+      "gen": 114,
+      "best_fitness": 6009104.611350288
+    },
+    {
+      "gen": 115,
+      "best_fitness": 6009104.611350288
+    },
+    {
+      "gen": 116,
+      "best_fitness": 6009104.611350288
+    },
+    {
+      "gen": 117,
+      "best_fitness": 6009104.611350288
+    },
+    {
+      "gen": 118,
+      "best_fitness": 6009104.611350288
+    },
+    {
+      "gen": 119,
+      "best_fitness": 6009104.611350288
+    },
+    {
+      "gen": 120,
+      "best_fitness": 6009104.611350288
+    },
+    {
+      "gen": 121,
+      "best_fitness": 6009104.611350288
+    },
+    {
+      "gen": 122,
+      "best_fitness": 6009104.611350288
+    },
+    {
+      "gen": 123,
+      "best_fitness": 6009104.611350288
+    },
+    {
+      "gen": 124,
+      "best_fitness": 6009104.611350288
+    },
+    {
+      "gen": 125,
+      "best_fitness": 6009104.611350288
+    },
+    {
+      "gen": 126,
+      "best_fitness": 6009104.611350288
+    },
+    {
+      "gen": 127,
+      "best_fitness": 6009104.611350288
+    },
+    {
+      "gen": 128,
+      "best_fitness": 6009104.611350288
+    },
+    {
+      "gen": 129,
+      "best_fitness": 6005723.728234159
+    },
+    {
+      "gen": 130,
+      "best_fitness": 6005723.728234159
+    },
+    {
+      "gen": 131,
+      "best_fitness": 6005723.728234159
+    },
+    {
+      "gen": 132,
+      "best_fitness": 6005723.728234159
+    },
+    {
+      "gen": 133,
+      "best_fitness": 6005723.728234159
+    },
+    {
+      "gen": 134,
+      "best_fitness": 6005723.728234159
+    },
+    {
+      "gen": 135,
+      "best_fitness": 6005723.728234159
+    },
+    {
+      "gen": 136,
+      "best_fitness": 6005723.728234159
+    },
+    {
+      "gen": 137,
+      "best_fitness": 6005723.728234159
+    },
+    {
+      "gen": 138,
+      "best_fitness": 6005723.728234159
+    },
+    {
+      "gen": 139,
+      "best_fitness": 6005723.728234159
+    },
+    {
+      "gen": 140,
+      "best_fitness": 6005723.728234159
+    },
+    {
+      "gen": 141,
+      "best_fitness": 6005723.728234159
+    },
+    {
+      "gen": 142,
+      "best_fitness": 6005723.728234159
+    },
+    {
+      "gen": 143,
+      "best_fitness": 6004704.686226231
+    },
+    {
+      "gen": 144,
+      "best_fitness": 6004704.686226231
+    },
+    {
+      "gen": 145,
+      "best_fitness": 6004704.686226231
+    },
+    {
+      "gen": 146,
+      "best_fitness": 6004704.686226231
+    },
+    {
+      "gen": 147,
+      "best_fitness": 6004704.686226231
+    },
+    {
+      "gen": 148,
+      "best_fitness": 6004704.686226231
+    },
+    {
+      "gen": 149,
+      "best_fitness": 6004704.686226231
+    },
+    {
+      "gen": 150,
+      "best_fitness": 6004704.686226231
+    },
+    {
+      "gen": 151,
+      "best_fitness": 6004704.686226231
+    },
+    {
+      "gen": 152,
+      "best_fitness": 6004704.686226231
+    },
+    {
+      "gen": 153,
+      "best_fitness": 6004704.686226231
+    },
+    {
+      "gen": 154,
+      "best_fitness": 6004704.686226231
+    },
+    {
+      "gen": 155,
+      "best_fitness": 6004704.686226231
+    },
+    {
+      "gen": 156,
+      "best_fitness": 6004704.686226231
+    },
+    {
+      "gen": 157,
+      "best_fitness": 6004704.686226231
+    },
+    {
+      "gen": 158,
+      "best_fitness": 6004704.686226231
+    },
+    {
+      "gen": 159,
+      "best_fitness": 6004704.686226231
+    },
+    {
+      "gen": 160,
+      "best_fitness": 6004704.686226231
+    },
+    {
+      "gen": 161,
+      "best_fitness": 6004704.686226231
+    },
+    {
+      "gen": 162,
+      "best_fitness": 6004704.686226231
+    },
+    {
+      "gen": 163,
+      "best_fitness": 6004704.686226231
+    },
+    {
+      "gen": 164,
+      "best_fitness": 6004704.686226231
+    },
+    {
+      "gen": 165,
+      "best_fitness": 6004704.686226231
+    },
+    {
+      "gen": 166,
+      "best_fitness": 6004704.686226231
+    },
+    {
+      "gen": 167,
+      "best_fitness": 6004704.686226231
+    },
+    {
+      "gen": 168,
+      "best_fitness": 6004704.686226231
+    },
+    {
+      "gen": 169,
+      "best_fitness": 6004704.686226231
+    },
+    {
+      "gen": 170,
+      "best_fitness": 6004704.686226231
+    },
+    {
+      "gen": 171,
+      "best_fitness": 6002046.941040302
+    },
+    {
+      "gen": 172,
+      "best_fitness": 6002046.941040302
+    },
+    {
+      "gen": 173,
+      "best_fitness": 6002046.941040302
+    },
+    {
+      "gen": 174,
+      "best_fitness": 6002046.941040302
+    },
+    {
+      "gen": 175,
+      "best_fitness": 6002046.941040302
+    },
+    {
+      "gen": 176,
+      "best_fitness": 6001478.372195968
+    },
+    {
+      "gen": 177,
+      "best_fitness": 6001478.372195968
+    },
+    {
+      "gen": 178,
+      "best_fitness": 5979223.384308151
+    },
+    {
+      "gen": 179,
+      "best_fitness": 5979223.384308151
+    },
+    {
+      "gen": 180,
+      "best_fitness": 5979223.384308151
+    },
+    {
+      "gen": 181,
+      "best_fitness": 5979223.384308151
+    },
+    {
+      "gen": 182,
+      "best_fitness": 5979223.384308151
+    },
+    {
+      "gen": 183,
+      "best_fitness": 5979223.384308151
+    },
+    {
+      "gen": 184,
+      "best_fitness": 5979223.384308151
+    },
+    {
+      "gen": 185,
+      "best_fitness": 5979223.384308151
+    },
+    {
+      "gen": 186,
+      "best_fitness": 5979223.384308151
+    },
+    {
+      "gen": 187,
+      "best_fitness": 5979223.384308151
+    },
+    {
+      "gen": 188,
+      "best_fitness": 5979223.384308151
+    },
+    {
+      "gen": 189,
+      "best_fitness": 5979223.384308151
+    },
+    {
+      "gen": 190,
+      "best_fitness": 5979223.384308151
+    },
+    {
+      "gen": 191,
+      "best_fitness": 5979223.384308151
+    },
+    {
+      "gen": 192,
+      "best_fitness": 5979223.384308151
+    },
+    {
+      "gen": 193,
+      "best_fitness": 5979223.384308151
+    },
+    {
+      "gen": 194,
+      "best_fitness": 5979223.384308151
+    },
+    {
+      "gen": 195,
+      "best_fitness": 5979223.384308151
+    },
+    {
+      "gen": 196,
+      "best_fitness": 5979223.384308151
+    },
+    {
+      "gen": 197,
+      "best_fitness": 5979223.384308151
+    },
+    {
+      "gen": 198,
+      "best_fitness": 5979223.384308151
+    },
+    {
+      "gen": 199,
+      "best_fitness": 5979223.384308151
+    },
+    {
+      "gen": 200,
+      "best_fitness": 5979223.384308151
+    },
+    {
+      "gen": 201,
+      "best_fitness": 5979223.384308151
+    },
+    {
+      "gen": 202,
+      "best_fitness": 5979223.384308151
+    },
+    {
+      "gen": 203,
+      "best_fitness": 5979223.384308151
+    },
+    {
+      "gen": 204,
+      "best_fitness": 5979223.384308151
+    },
+    {
+      "gen": 205,
+      "best_fitness": 5979223.384308151
+    },
+    {
+      "gen": 206,
+      "best_fitness": 5979223.384308151
+    },
+    {
+      "gen": 207,
+      "best_fitness": 5979223.384308151
+    },
+    {
+      "gen": 208,
+      "best_fitness": 5979223.384308151
     }
   ],
   "feasibility": false

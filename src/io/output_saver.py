@@ -15,12 +15,12 @@ def ensure_parent(path: str | Path) -> Path:
 
 def save_json(data: Dict[str, Any], path: str | Path) -> None:
     p = ensure_parent(path)
-    p.write_text(json.dumps(data, indent=2, ensure_ascii=False))
+    p.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
 
 
 def save_md(text: str, path: str | Path) -> None:
     p = ensure_parent(path)
-    p.write_text(text)
+    p.write_text(text, encoding="utf-8")
 
 
 def save_log_records(records: List[Dict[str, Any]], path: str | Path) -> None:

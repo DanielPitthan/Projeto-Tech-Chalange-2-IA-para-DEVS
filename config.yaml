@@ -4,7 +4,7 @@
 ga:
   seed: 42                  # semente para reprodutibilidade dos experimentos
   population_size: 200      # tamanho da população do algoritmo genético (AG)
-  generations: 800          # número máximo de gerações do AG
+  generations: 100          # número máximo de gerações do AG
   selection: tournament     # método de seleção: tournament | roulette
   tournament_k: 2           # tamanho do torneio (se selection=tournament)
   crossover: PMX            # operador de crossover: OX | PMX (partially matched)
@@ -14,7 +14,7 @@ ga:
   elitism: 3                # número de indivíduos elite preservados por geração
   stagnation_patience: 30   # gerações sem melhora antes do early stopping
 vrp:
-  vehicles: 6                        # quantidade de veículos disponíveis
+  vehicles: 5                       # quantidade de veículos disponíveis
   vehicle_capacity: 200              # capacidade de carga por veículo (kg)
   vehicle_range_km: 150              # autonomia máxima por veículo (km)
   vehicle_speed_kmh: 80              # velocidade média usada para ETAs (km/h)

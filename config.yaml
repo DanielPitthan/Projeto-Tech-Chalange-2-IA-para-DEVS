@@ -3,16 +3,16 @@
 
 ga:
   seed: 42                  # semente para reprodutibilidade dos experimentos
-  population_size: 200      # tamanho da população do algoritmo genético (AG)
-  generations: 100          # número máximo de gerações do AG
-  selection: tournament     # método de seleção: tournament | roulette
+  population_size: 500      # tamanho da população do algoritmo genético (AG)
+  generations: 3000          # número máximo de gerações do AG
+  selection: roulette       # método de seleção: tournament | roulette
   tournament_k: 2           # tamanho do torneio (se selection=tournament)
   crossover: PMX            # operador de crossover: OX | PMX (partially matched)
-  crossover_rate: 0.3       # probabilidade de aplicar crossover
-  mutation: inversion       # operador de mutação: swap | inversion | relocate | two_opt
+  crossover_rate: 0.2       # probabilidade de aplicar crossover
+  mutation: inversion         # operador de mutação: swap | inversion | relocate | two_opt
   mutation_rate: 0.2        # probabilidade de aplicar mutação
-  elitism: 3                # número de indivíduos elite preservados por geração
-  stagnation_patience: 30   # gerações sem melhora antes do early stopping
+  elitism: 2                # número de indivíduos elite preservados por geração
+  stagnation_patience: 5   # gerações sem melhora antes do early stopping
 vrp:
   vehicles: 5                       # quantidade de veículos disponíveis
   vehicle_capacity: 200              # capacidade de carga por veículo (kg)
@@ -27,9 +27,9 @@ weights:
   w_priority: 25.0   # penalidade por atrasar/violar entregas prioritárias
   w_time: 20.0       # penalidade por exceder janela de trabalho/tempo
 depot:
-  name: "Deposito Central"  # nome de referência do depósito
-  latitude: -23.5            # latitude do depósito
-  longitude: -46.6           # longitude do depósito
+  name: "Deposito Central- Sorocaba"  # nome de referência do depósito
+  latitude: -23.50           # latitude do depósito
+  longitude: -47.45           # longitude do depósito
   demanda: 0                 # demanda do depósito (mantenha 0)
   prioridade: 1              # prioridade do depósito (1=regular)
   tempo_atendimento_min: 0   # tempo de serviço no depósito (min)

@@ -13,7 +13,7 @@ from . import prompts
 
 
 class LLMClient:
-    """Cliente LLM exclusivo para Ollama local."""
+    """Cliente LLM exclusivo para Ollama local com logging de requests/responses."""
 
     def __init__(self, model: str, temperature: float = 0.2, host: Optional[str] = None) -> None:
         self.model = model
@@ -21,6 +21,11 @@ class LLMClient:
         self.host = host
         self.client: Optional[Client] = None
         self.available = False
+        
+        # Logging de requests e responses
+        self.last_request: Optional[Dict[str, Any]] = None
+        self.last_response: Optional[str] = None
+        self.request_history: List[Dict[str, Any]] = []
 
         if Client is not None:
             # host opcional permite apontar para outra instância; default usa localhost:11434
@@ -28,8 +33,19 @@ class LLMClient:
             self.available = True
 
     def complete(self, system: str, user: str) -> str:
+        # Armazena request para logging
+        self.last_request = {
+            "model": self.model,
+            "system": system[:500] + "..." if len(system) > 500 else system,
+            "user": user[:1000] + "..." if len(user) > 1000 else user,
+            "temperature": self.temperature,
+            "timestamp": datetime.now().isoformat(),
+        }
+        
         if not self.available or self.client is None:
-            return "[LLM desabilitado: instale o pacote 'ollama' (pip install ollama) e execute 'ollama serve']"
+            self.last_response = "[LLM desabilitado: instale o pacote 'ollama' (pip install ollama) e execute 'ollama serve']"
+            self._save_to_history()
+            return self.last_response
 
         try:
             resp = self.client.chat(
@@ -41,13 +57,37 @@ class LLMClient:
                 options={"temperature": self.temperature},
             )
         except Exception as e:  # pragma: no cover - retorno de erro ao usuário final
-            return f"[Erro ao chamar Ollama: {e}]"
+            self.last_response = f"[Erro ao chamar Ollama: {e}]"
+            self._save_to_history()
+            return self.last_response
 
         # resp.message.content já contém o texto final; manter fallback seguro
         try:
-            return resp.message.content or ""
+            self.last_response = resp.message.content or ""
         except Exception:
-            return ""
+            self.last_response = ""
+        
+        self._save_to_history()
+        return self.last_response
+    
+    def _save_to_history(self) -> None:
+        """Salva request/response no histórico."""
+        if self.last_request:
+            entry = {
+                **self.last_request,
+                "response": self.last_response[:2000] + "..." if self.last_response and len(self.last_response) > 2000 else self.last_response,
+            }
+            self.request_history.append(entry)
+            # Manter apenas últimos 10 requests
+            if len(self.request_history) > 10:
+                self.request_history = self.request_history[-10:]
+    
+    def get_last_exchange(self) -> Dict[str, Any]:
+        """Retorna último request e response para exibição."""
+        return {
+            "request": self.last_request,
+            "response": self.last_response,
+        }
 
 
 # =============================================================================
@@ -613,3 +653,150 @@ def generate_all_instructions(
         all_instructions.append("\n---\n")
     
     return "\n".join(all_instructions)
+
+
+def navigation_instructions_for_route(
+    client: LLMClient,
+    route: Dict[str, Any],
+    nodes_map: Dict[int, Any],
+    depot: Any,
+    departure_time: str = "08:00",
+    vehicle_speed_kmh: float = 60.0,
+) -> str:
+    """
+    Gera instruções de navegação ponto-a-ponto para um motorista.
+    
+    Args:
+        client: Cliente LLM configurado
+        route: Dict da rota (sequence, distance_km, etc.)
+        nodes_map: Mapeamento id -> Node
+        depot: Node do depósito
+        departure_time: Horário de partida (HH:MM)
+        vehicle_speed_kmh: Velocidade média do veículo
+    
+    Returns:
+        String com instruções de navegação em Markdown
+    """
+    sequence = route.get("sequence", [])
+    
+    # Montar sequência de pontos com coordenadas
+    points_lines = []
+    for i, node_id in enumerate(sequence):
+        node = nodes_map.get(node_id)
+        if node is None:
+            continue
+        
+        if node_id == depot.node_id:
+            point_type = "[DEPÓSITO]" if i == 0 else "[RETORNO DEPÓSITO]"
+            name = depot.name
+        else:
+            point_type = f"[PARADA {i}]"
+            name = getattr(node, "name", f"Ponto {node_id}")
+        
+        state = getattr(node, "state", "")
+        lat = getattr(node, "lat", 0)
+        lon = getattr(node, "lon", 0)
+        
+        points_lines.append(
+            f"{i+1}. {point_type} **{name}** ({state}) - Coords: ({lat:.4f}, {lon:.4f})"
+        )
+    
+    points_sequence = "\n".join(points_lines)
+    
+    # Preparar dados para o template
+    enriched = {
+        "vehicle_id": route.get("vehicle_id", "V1"),
+        "departure_time": departure_time,
+        "num_stops": len([nid for nid in sequence if nid != depot.node_id]),
+        "distance_km": route.get("distance_km", 0),
+        "points_sequence": points_sequence,
+    }
+    
+    # Tentar usar LLM
+    if client.available:
+        user_prompt = prompts.NAVIGATION_TEMPLATE.format(**enriched)
+        llm_response = client.complete(prompts.SYSTEM_PROMPT_NAVIGATION, user_prompt)
+        if not llm_response.startswith("[LLM") and not llm_response.startswith("[Erro"):
+            return llm_response
+    
+    # Fallback: gerar navegação básica sem LLM
+    return _generate_navigation_fallback(sequence, nodes_map, depot, departure_time, vehicle_speed_kmh)
+
+
+def _generate_navigation_fallback(
+    sequence: List[int],
+    nodes_map: Dict[int, Any],
+    depot: Any,
+    departure_time: str,
+    vehicle_speed_kmh: float,
+) -> str:
+    """Gera instruções de navegação básicas sem LLM."""
+    from src.core.distance import haversine
+    
+    lines = [
+        "# 🧭 INSTRUÇÕES DE NAVEGAÇÃO",
+        "",
+        f"**Horário de Partida:** {departure_time}",
+        "",
+        "---",
+        "",
+        "## ROTEIRO PONTO-A-PONTO",
+        "",
+    ]
+    
+    prev_node = depot
+    for i, node_id in enumerate(sequence):
+        if i == 0:
+            continue  # Pular depósito inicial
+        
+        node = nodes_map.get(node_id)
+        if node is None:
+            continue
+        
+        # Calcular distância do trecho
+        try:
+            dist = haversine(prev_node.lat, prev_node.lon, node.lat, node.lon)
+        except Exception:
+            dist = 0
+        
+        time_min = (dist / vehicle_speed_kmh) * 60 if vehicle_speed_kmh > 0 else 0
+        
+        # Determinar direção geral
+        lat_diff = node.lat - prev_node.lat
+        lon_diff = node.lon - prev_node.lon
+        
+        directions = []
+        if lat_diff > 0.5:
+            directions.append("Norte")
+        elif lat_diff < -0.5:
+            directions.append("Sul")
+        if lon_diff > 0.5:
+            directions.append("Leste")
+        elif lon_diff < -0.5:
+            directions.append("Oeste")
+        
+        direction_str = "-".join(directions) if directions else "Proximidades"
+        
+        prev_name = getattr(prev_node, "name", "Ponto anterior")
+        curr_name = getattr(node, "name", f"Ponto {node_id}")
+        
+        lines.extend([
+            f"### 🚗 Trecho {i}: {prev_name} → {curr_name}",
+            f"- **Distância:** ~{dist:.1f} km",
+            f"- **Tempo estimado:** ~{time_min:.0f} min",
+            f"- **Direção geral:** {direction_str}",
+            f"- **Coordenadas destino:** ({node.lat:.4f}, {node.lon:.4f})",
+            "",
+        ])
+        
+        prev_node = node
+    
+    lines.extend([
+        "---",
+        "",
+        "⚠️ **IMPORTANTE:** Estas são estimativas baseadas em distância em linha reta.",
+        "Utilize GPS/Waze para navegação real.",
+        "",
+    ])
+    
+    return "\n".join(lines)

@@ -1,0 +1,55 @@
+# Configuração REALISTA para logística hospitalar
+# Parâmetros calibrados para operações de entrega de medicamentos/insumos
+
+ga:
+  seed: 42                      # Semente para reprodutibilidade
+  population_size: 200          # População maior = melhor exploração
+  generations: 500              # Mais gerações para convergência
+  selection: tournament         # Tournament é mais estável
+  tournament_k: 5               # Pressão seletiva moderada
+  crossover: PMX                # PMX preserva ordem relativa (ideal para VRP)
+  crossover_rate: 0.85          # Alta taxa de crossover
+  mutation: inversion           # Inversion favorece otimização local
+  mutation_rate: 0.15           # Taxa moderada de mutação
+  elitism: 5                    # Preserva os 5 melhores
+  stagnation_patience: 50       # Paciência maior antes de parar
+
+vrp:
+  vehicles: 5                   # Frota típica de hospital médio
+  vehicle_capacity: 150         # Capacidade de van/ambulância (kg)
+  vehicle_range_km: 400         # Autonomia realista (km)
+  vehicle_speed_kmh: 60         # Velocidade média urbana/rodoviária
+  service_time_min: 15          # Tempo médio de entrega hospitalar
+  work_time_window: ["06:00", "22:00"]  # Janela operacional hospitalar
+
+weights:
+  w_distance: 1.0               # Objetivo principal: minimizar distância
+  w_capacity: 100.0             # Penalidade alta para não exceder capacidade
+  w_range: 100.0                # Penalidade alta para respeitar autonomia
+  w_priority: 50.0              # Prioridades críticas devem ser respeitadas
+  w_time: 30.0                  # Penalidade moderada para janela de tempo
+
+depot:
+  name: "Centro de Distribuição Hospitalar - São Paulo"
+  latitude: -23.5505            # São Paulo - centro logístico
+  longitude: -46.6333
+  demanda: 0
+  prioridade: 1
+  tempo_atendimento_min: 0
+
+llm:
+  model: llama3                 # Modelo padrão (será sobrescrito pela UI)
+  host: null                    # Usa padrão do Ollama
+  temperature: 0.3              # Criatividade moderada
+  departure_time: "06:00"       # Partida no início da janela
+  generate_instructions: true
+  generate_report: true
+
+logging:
+  jsonl_path: outputs/run_log.jsonl
+
+output:
+  solution_json: outputs/solution.json
+  report_md: outputs/report.md
+  map_html: outputs/map.html
+  convergence_png: outputs/convergence.png

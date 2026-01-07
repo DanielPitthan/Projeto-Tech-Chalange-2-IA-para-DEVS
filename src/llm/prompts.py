@@ -198,3 +198,54 @@ QA_TEMPLATE = """Com base nos dados da solução de rotas abaixo, responda à pe
 ```
 
 Responda de forma clara e objetiva, citando os dados específicos que sustentam sua resposta."""
+
+# =============================================================================
+# PROMPTS PARA INSTRUÇÕES DE NAVEGAÇÃO PONTO-A-PONTO
+# =============================================================================
+
+SYSTEM_PROMPT_NAVIGATION = """Você é um sistema de navegação para motoristas de logística hospitalar.
+Sua função é gerar instruções de direção ESTIMADAS entre cidades/pontos de entrega.
+
+REGRAS OBRIGATÓRIAS:
+- Use APENAS os dados fornecidos (nomes de cidades, estados, coordenadas)
+- Instruções devem ser claras e sequenciais
+- Indique direção geral (norte, sul, leste, oeste) baseada nas coordenadas
+- Estime rodovias principais entre capitais brasileiras quando possível
+- Use formato: "De [ORIGEM] para [DESTINO]: [direções]"
+- Inclua distância aproximada entre cada trecho
+- NUNCA invente nomes de ruas ou detalhes específicos que não foram fornecidos
+- Seja conciso mas informativo
+
+FORMATO DE SAÍDA:
+Para cada trecho, use:
+🚗 **Trecho N: [Origem] → [Destino]** (~XX km)
+- Direção geral: [Norte/Sul/Leste/Oeste]
+- Rota sugerida: [rodovia principal se conhecida]
+- Tempo estimado: ~XX min
+"""
+
+NAVIGATION_TEMPLATE = """Gere instruções de navegação ponto-a-ponto para o motorista.
+
+## DADOS DA ROTA
+
+**Veículo:** {vehicle_id}
+**Partida:** {departure_time} do depósito
+**Total de paradas:** {num_stops}
+**Distância total:** {distance_km:.1f} km
+
+## SEQUÊNCIA DE PONTOS (com coordenadas)
+
+{points_sequence}
+
+## INSTRUÇÕES
+
+Gere instruções de navegação ESTIMADAS para cada trecho da rota acima.
+Para cada transição entre pontos, indique:
+1. Direção geral baseada nas coordenadas (ex: "siga sentido sul")
+2. Rodovia principal provável entre as cidades (se conhecida)
+3. Distância aproximada do trecho
+4. Tempo estimado do trecho
+
+Lembre-se: estas são ESTIMATIVAS baseadas em conhecimento geral de geografia brasileira.
+O motorista deve confirmar a rota no GPS/Waze antes de partir.
+"""
